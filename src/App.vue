@@ -1,93 +1,51 @@
 <template>
   <div class="w-full min-h-screen bg-green-300">
-    <div class="h-36 flex gap-2 justify-center items-center">
-      <h1 class="font-bold">V-BIND and V-ON:</h1>
-      <IncrementButton 
-          v-bind:counter="counterValue"
-          v-on:click="incrementValue"
-      />
-      <IncrementButton 
-        v-on:click="incrementValue"
+    <nav class="flex gap-4 py-4 px-6 bg-green-100">
+      <RouterLink 
+        to="/"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
       >
-        <div class="flex gap-2 font-semibold text-green-600">
-          <span>Je suis un bouton incremental avec un slot : {{ counterValue }}</span>
-          <span>
-            <!-- Icon SVG récupéré sur le site Heroicons https://heroicons.com/ -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </span>  
-        </div>
-      </IncrementButton>
-    </div>
-
-    <div class="h-36 flex gap-2 justify-center items-center">
-      <h1 class="font-bold">V-FOR:</h1>
-      <ColorTag 
-        v-for="(color, index) in colors"
-        :key="index"
-        :label="color" 
-        :color="color"
-      />
-    </div>
-
-    <div class="h-36 flex gap-2 justify-center items-center">
-      <h1 class="font-bold">V-IF / V-ELSE:</h1>
-      <SimpleButton @click="toggleVisibility">TOGGLE VISIBILITY</SimpleButton>
-      <div v-if="visible">NOW YOU SEE ME</div>
-      <div v-else>NOW YOU DON'T</div>
-    </div>  
-    
-    <div class="h-36 flex gap-2 justify-center items-center">
-      <h1 class="font-bold">V-MODEL:</h1>
-      <input 
-        type="text"
-        v-model="vModelValue" 
-        placeholder="Type your text here"
-        class="bg-white p-2 rounded"
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </RouterLink>
+      <RouterLink 
+        to="/increment-button"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
       >
-      <div>{{ vModelValue }}</div>
-    </div>
-    
-    <div class="h-36 flex gap-2 justify-center items-center">
-      <h1 class="font-bold">GET POKEMON FROM HOOK:</h1>
-      <div class="flex-col bg-white rounded p-6">
-        <div class="text-center">{{ pokemonData?.name?.fr }}</div>
-        <img 
-          class="w-32" 
-          :src="pokemonData?.sprites?.regular" 
-        />
-      </div>
-    </div>
+        V-BIND / V-ON
+      </RouterLink>
+      <RouterLink 
+        to="/v-for"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
+      >
+        V-FOR
+      </RouterLink>
+      <RouterLink 
+        to="/v-if"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
+      >
+        V-IF / V-ELSE
+      </RouterLink>
+      <RouterLink 
+        to="/v-model"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
+      >
+        V-MODEL
+      </RouterLink>
+      <RouterLink 
+        to="/lifecycle-hook"
+        class="bg-white hover:bg-gray-100 hover:text-green-600 p-2 rounded cursor-pointer border"
+      >
+        LIFECYCLE HOOK
+      </RouterLink>
+    </nav>
+    <main>
+      <RouterView />
+    </main>
   </div>
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
-  import IncrementButton from './components/IncrementButton.vue';
-  import ColorTag from './components/ColorTag.vue';
-  import SimpleButton from './components/SimpleButton.vue';
-
-  // incremental button ref and method
-  const counterValue = ref(0)
-  const incrementValue = () => {
-    console.log('Le bouton a été cliqué')
-    counterValue.value++
-  }
-  // color array for v-for
-  const colors = [ 'red', 'green', 'yellow', 'purple']
-  // ref and method for v-if
-  const visible = ref(true)
-  const toggleVisibility = () => {
-    visible.value = !visible.value
-  }
-  // ref for v-model
-  const vModelValue = ref('')
-  // API call
-  const pokemonData = ref()
-  onMounted( async () => {
-    const response = await fetch('https://tyradex.app/api/v1/pokemon/246')
-    pokemonData.value = await response.json()
-  })
-
+  // Empty
 </script>
