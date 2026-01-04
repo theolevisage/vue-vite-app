@@ -47,12 +47,23 @@
         class="bg-white p-2 rounded"
       >
       <div>{{ vModelValue }}</div>
-    </div> 
+    </div>
+    
+    <div class="h-36 flex gap-2 justify-center items-center">
+      <h1 class="font-bold">GET POKEMON FROM HOOK:</h1>
+      <div class="flex-col bg-white rounded p-6">
+        <div class="text-center">{{ pokemonData?.name?.fr }}</div>
+        <img 
+          class="w-32" 
+          :src="pokemonData?.sprites?.regular" 
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import IncrementButton from './components/IncrementButton.vue';
   import ColorTag from './components/ColorTag.vue';
   import SimpleButton from './components/SimpleButton.vue';
@@ -72,5 +83,11 @@
   }
   // ref for v-model
   const vModelValue = ref('')
+  // API call
+  const pokemonData = ref()
+  onMounted( async () => {
+    const response = await fetch('https://tyradex.app/api/v1/pokemon/246')
+    pokemonData.value = await response.json()
+  })
 
 </script>
