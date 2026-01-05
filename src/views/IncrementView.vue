@@ -22,11 +22,17 @@
 </template>
 <script setup lang="js">
   import { ref } from 'vue'
-  import IncrementButton from '../components/IncrementButton.vue';
+  import IncrementButton from '../components/IncrementButton.vue'
+  import { useNavigationStore } from '../stores/navigation'
+  import { useRoute } from 'vue-router';
   // incremental button ref and method
   const counterValue = ref(0)
   const incrementValue = () => {
     console.log('Le bouton a été cliqué')
     counterValue.value++
   }
+  
+  const navStore = useNavigationStore()
+  const currentRoute = useRoute().path
+  navStore.setLastNavigatedRoute(currentRoute)
 </script>

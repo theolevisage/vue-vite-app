@@ -12,10 +12,16 @@
 </template>
 <script setup lang="js">
   import { ref, onMounted } from 'vue'
+  import { useNavigationStore } from '../stores/navigation'
+  import { useRoute } from 'vue-router'
   // API call
   const pokemonData = ref()
   onMounted( async () => {
     const response = await fetch('https://tyradex.app/api/v1/pokemon/246')
     pokemonData.value = await response.json()
   })
+
+  const navStore = useNavigationStore()
+  const currentRoute = useRoute().path
+  navStore.setLastNavigatedRoute(currentRoute)
 </script>

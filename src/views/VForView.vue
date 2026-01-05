@@ -10,7 +10,13 @@
     </div>
 </template>
 <script setup lang="js">
-  import ColorTag from '../components/ColorTag.vue';
+  import ColorTag from '../components/ColorTag.vue'
+  import { useNavigationStore } from '../stores/navigation'
+  import { useRoute } from 'vue-router'
   // color array for v-for
   const colors = [ 'red', 'green', 'yellow', 'purple']
+
+  const navStore = useNavigationStore()
+  const currentRoute = useRoute().path
+  navStore.setLastNavigatedRoute(currentRoute)
 </script>

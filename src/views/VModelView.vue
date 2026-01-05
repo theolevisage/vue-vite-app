@@ -11,7 +11,13 @@
     </div>
 </template>
 <script setup lang="js">
-  import { ref } from 'vue' 
+  import { ref } from 'vue'
+  import { useNavigationStore } from '../stores/navigation'
+  import { useRoute } from 'vue-router'
   // ref for v-model
   const vModelValue = ref('')
+  
+  const navStore = useNavigationStore()
+  const currentRoute = useRoute().path
+  navStore.setLastNavigatedRoute(currentRoute)
 </script>

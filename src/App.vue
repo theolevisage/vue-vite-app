@@ -39,6 +39,7 @@
       >
         LIFECYCLE HOOK
       </RouterLink>
+      <div>Last nav: {{ navStore.lastNavigatedRoute }}</div>
     </nav>
     <main>
       <RouterView />
@@ -47,5 +48,6 @@
 </template>
 
 <script setup>
-  // Empty
+  import { useNavigationStore } from './stores/navigation'
+  const navStore = useNavigationStore()
 </script>
